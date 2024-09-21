@@ -71,8 +71,8 @@ vim.opt.scrolloff = 10
 -- Set backaup directories
 local prefix = os.getenv("XDG_STATE_HOME")
 -- Fallback to default if XDG_STATE_HOME is not set
-if not xdg_state_home then
-    xdg_state_home = os.getenv("HOME") .. "/.config"
+if not prefix then
+	prefix = os.getenv("HOME") .. "/.config"
 end
 vim.opt.undodir = { prefix .. "/nvim/.undo//" }
 vim.opt.backupdir = { prefix .. "/nvim/.backup//" }
