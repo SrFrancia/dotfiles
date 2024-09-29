@@ -13,8 +13,11 @@ function linkDotFile {
 
 linkDotFile .bashrc
 linkDotFile .bash_aliases
-linkDotFile .config/nvim/init.lua
 linkDotFile .bashrc
+
+mkdir -p ~/$DIRNAME/.config/nvim/
+linkDotFile .config/nvim/init.lua
+
 
 # for file in $( ls -A .[a-zA-z]* | sed "s/[\&\;\|$$$$$$\{\}\$\`\~\!\@\#\%\^\*\+\=\-\/\:\;\"\'\ ]/\\\&/g" ); do
 #     linkDotFile "'$file'"
