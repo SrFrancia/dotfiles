@@ -4,10 +4,11 @@
 set -e
 set -u
 
-RCol='\033[0m'
-Gre='\033[0;32m'
-Red='\033[0;31m'
-Yel='\033[0;33m'
+readonly RCol='\033[0m'
+readonly Gre='\033[0;32m'
+readonly Red='\033[0;31m'
+readonly Yel='\033[0;33m'
+readonly DIRNAME=dotfiles
 
 ## printing functions ##
 function gecho {
@@ -34,13 +35,7 @@ function recho {
 # check for pre-req, fail if not found
 function check_preq {
   (command -v $1 > /dev/null  && gecho "$1 found...") || 
-    recho "$1 not found, install before proceeding."
-}
-
-# look for command line tool, if not install via homebrew
-function install_brew {
-  (command -v $1 > /dev/null  && gecho "$1 found...") || 
-    (yecho "$1 not found, installing via homebrew..." && brew install $1)
+    recho "$1 no encontrado, instala antes de seguir."
 }
 
 # function for linking dotfiles
@@ -48,7 +43,7 @@ function linkdotfile {
   file="$1"
   if [ ! -e ~/$file -a ! -L ~/$file ]; then
       yecho "$file not found, linking..." >&2
-      ln -s ~/dotfiles/$file ~/$file
+      ln -s ~/$DIRNAME/$file ~/$file
   else
       gecho "$file found, ignoring..." >&2
   fi
@@ -63,10 +58,6 @@ function linkdotfile {
 # these aren't installed, and ask user to install
 # manually
 check_preq nvim
-check_preq "command -v ~/anaconda/bin/conda"
-
-yecho "linking prezto files..." >&2
-zsh install_prezto.zsh
 
 # link over .gitconfig
 linkdotfile .gitconfig
@@ -75,28 +66,24 @@ linkdotfile .gitattributes
 # link over .tmux.conf
 linkdotfile .tmux.conf
 
+# se crea la carpeta .config/nvim
+mkdir -p ~/.config/nvim/init.lua
 # link NeoVim settings
-linkdotfile .config
+linkdotfile .config/nvim/init.lua
 
-# create a Rprofile
-linkdotfile .Rprofile
 
 # create a global Git ignore file
 if [ ! -e ~/.global_ignore ]; then
     yecho "~/.global_ignore not found, curling from Github..." >&2
     curl \
-      https://raw.githubusercontent.com/github/gitignore/master/Global/Emacs.gitignore \
-      https://raw.githubusercontent.com/github/gitignore/master/Global/Vim.gitignore \
-      https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore \
-      https://raw.githubusercontent.com/github/gitignore/master/TeX.gitignore \
-      https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore \
+      https://raw.githubusercontent.com/github/gitignore/main/Global/Linux.gitignore \
+      https://raw.githubusercontent.com/github/gitignore/main/Global/Vim.gitignore \
+      https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore \
+      https://raw.githubusercontent.com/github/gitignore/main/C++.gitignore \
+      https://raw.githubusercontent.com/github/gitignore/main/Global/LibreOffice.gitignore \
     > ~/.global_ignore 2> /dev/null
     git config --global core.excludesfile ~/.global_ignore && 
       yecho "[message] adding ignore file to Git..." >&2
 else
     gecho "~/.global_ignore found, ignoring..." >&2
 fi
-
-yecho "run the following to change shell to zsh... :" >&2
-echo "  chsh -s /bin/zsh "
-
