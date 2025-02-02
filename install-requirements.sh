@@ -17,7 +17,7 @@ function check_preq {
 check_preq nvim
 
 apt update
-apt install git curl gcc make clangd python3 python3-venv python-is-python3 pip python3-pynvim lua5.4 luarocks ripgrep fd-find -y
+apt install git curl gcc make clangd python3 python3-venv python-is-python3 pip python3-pynvim lua5.4 luarocks ripgrep fd-find stow -y
 # python3-pip install --user --upgrade pynvim ## replaced with apt install python3-nvim
 
 # Install JetBrainsMono Nerd Font

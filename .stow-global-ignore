@@ -1,0 +1,12 @@
+\.git
+\.gitignore
+\.gitmodules
+
+^/*.sh
+
+^/*.tar.xz
+
+
+^/README.*
+^/LICENSE.*
+^/COPYING
