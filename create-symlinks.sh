@@ -1,9 +1,25 @@
 #!/bin/bash
+
+set -e
+set -u
+
+readonly RCol='\033[0m'
+readonly Gre='\033[0;32m'
+readonly Yel='\033[0;33m'
 readonly DIRNAME=dotfiles
+
+## printing functions ##
+function gecho {
+  echo "${Gre}[message] $1${RCol}"
+}
+
+function yecho {
+  echo "${Yel}[warning] $1${RCol}"
+}
 
 function linkDotFile {
   file="$1"
-  if [ ! -e ~/$file -a ! -L ~/$file ]; then
+  if [[ ! -e ~/$file -a ! -L ~/$file ]]; then
       yecho "$file not found, linking..." >&2
       ln -s ~/$DIRNAME/$file ~/$file
   else
@@ -13,12 +29,8 @@ function linkDotFile {
 
 linkDotFile .bashrc
 linkDotFile .bash_aliases
-linkDotFile .bashrc
 
-mkdir -p ~/$DIRNAME/.config/nvim/
+if [[ ! -d ~/.config || ! -d ~/.config/nvim ]]; then
+  mkdir -p ~/.config/nvim
+fi
 linkDotFile .config/nvim/init.lua
-
-
-# for file in $( ls -A .[a-zA-z]* | sed "s/[\&\;\|$$$$$$\{\}\$\`\~\!\@\#\%\^\*\+\=\-\/\:\;\"\'\ ]/\\\&/g" ); do
-#     linkDotFile "'$file'"
-# done
