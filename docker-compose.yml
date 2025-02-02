@@ -1,0 +1,14 @@
+services:
+  neovim:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: neovim
+    volumes:
+      - ./.bashrc:/root/dotfiles/.bashrc
+      - ./.bash_aliases:/root/dotfiles/.bash_aliases
+      - ./.config/nvim/init.lua:/root/dotfiles/.config/nvim/init.lua
+      - ./create-symlinks.sh:/root/dotfiles/create-symlinks.sh
+      - ./install-requirements.sh:/root/dotfiles/install-requirements.sh
+    stdin_open: true
+    tty: true
