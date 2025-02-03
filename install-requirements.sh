@@ -23,10 +23,8 @@ apt install git curl gcc make clangd python3 python3-venv python-is-python3 pip 
 # Install JetBrainsMono Nerd Font
 if [[ ! -e /usr/local/share/fonts/JetBrainsMonoNerdFont-Regular.ttf ]]; then
   echo "Descargando JetBrainsMono Nerd Font..."
-  set +e
-  curl --retry 5 --retry-delay 3 -L -o JetBrainsMono.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
+  curl --retry 5 --retry-delay 3 --retry-all-errors -L -o JetBrainsMono.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
   [[  $? -ne 0 ]] && echo "Fallo descargado JetBrainsMono Nerd Font!" && exit 1
-  set -e
   if [[ ! -d /usr/local/share/fonts ]]; then
     mkdir -p /usr/local/share/fonts
   fi
