@@ -10,5 +10,6 @@ services:
       - ./.config/nvim/init.lua:/root/dotfiles/.config/nvim/init.lua
       - ./create-symlinks.sh:/root/dotfiles/create-symlinks.sh
       - ./install-requirements.sh:/root/dotfiles/install-requirements.sh
+      - ./.stow-global-ignore:/root/dotfiles/.stow-global-ignore
     stdin_open: true
     tty: true
