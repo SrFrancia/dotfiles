@@ -3,7 +3,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: neovim
+    container_name: testing-neovim
     volumes:
       - ./.bashrc:/root/dotfiles/.bashrc
       - ./.bash_aliases:/root/dotfiles/.bash_aliases
