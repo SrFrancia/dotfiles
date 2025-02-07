@@ -42,6 +42,7 @@ RUN apt-get update && \
     python3-pynvim \
     xclip \
     xxd && \
+    bash-completion \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
