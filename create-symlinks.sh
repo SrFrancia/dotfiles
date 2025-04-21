@@ -9,7 +9,6 @@ handle_conflict() {
     echo "Conflict found: $target already exists"
     while true; do
         read -pr "What would you like to do? [b]ackup/[r]emove/[s]kip: " choice
-        echo "You entered: '$choice'" # Debugging line
         case "$choice" in
             b|B)
                 if [[ ! -d "$HOME/.backup" ]]; then
@@ -59,8 +58,10 @@ files_to_link=$(eval "find . -mindepth 1 -maxdepth 1 $ignore_patterns -printf '%
 
 # Check for conflicts
 for file in $files_to_link; do
+    # Skip if the file is empty
     [[ -z "$file" ]] && continue
     target="$HOME/$file"
+    # Check if the target exists and is not a symlink to handle conflicts
     if [ -e "$target" ] && [ ! -L "$target" ]; then
         handle_conflict "$target"
     fi
