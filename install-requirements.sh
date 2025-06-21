@@ -14,11 +14,16 @@ function check_preq {
     (echo "$1 no encontrado, instala antes de seguir." && exit 1)
 }
 
-check_preq nvim
+# check_preq 
+
+# Add Neovim unstable ppa
+add-apt-repository ppa:neovim-ppa/unstable
 
 apt update
-apt install git curl gcc make clangd python3 python3-venv python-is-python3 pip python3-pynvim lua5.4 luarocks ripgrep fd-find stow -y
+apt install git neovim curl npm gcc make clangd python3 python3-venv python-is-python3 pip python3-pynvim lua5.4 luarocks ripgrep fd-find stow -y
 # python3-pip install --user --upgrade pynvim ## replaced with apt install python3-nvim
+ln $(which nvim) "$HOME/.local/bin/vim"
+npm install -g bash-languaje-server
 
 # Install JetBrainsMono Nerd Font
 if [[ ! -e /usr/local/share/fonts/JetBrainsMonoNerdFont-Regular.ttf ]]; then
