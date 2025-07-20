@@ -35,26 +35,7 @@ handle_conflict() {
     done
 }
 
-# Convert .stow-global-ignore patterns to `find` arguments
-# 1. sed -e 's/^\/\?//'     : Remove optional leading '/' from patterns
-# 2. sed -e 's/\.\*/\*/'    : Convert '.*' to '*' for shell globbing
-# 3. grep -v '^$'           : Remove empty lines
-# 4. sed 's/^/! -path "\.\//'   : Prefix each pattern with find's exclusion syntax
-# 5. sed 's/$/"/'           : Add closing quote to pattern
-# 6. tr '\n' ' '            : Join all patterns with spaces for find command
-ignore_patterns=$(sed -e 's/^\/\?//' -e 's/\.\*/\*/' .stow-global-ignore | \
-                 grep -v '^$' | \
-                 sed 's/^/! -path "\.\//' | \
-                 sed 's/$/"/' | \
-                 tr '\n' ' ')
-
-# Use find with the transformed patterns to list files
-# - mindepth 1: Skip current directory
-# - maxdepth 1: Only direct children
-# - printf '%P\n': Print filenames without './' prefix
-# - sed 's:/*$::': Remove trailing slashes from directory names
-files_to_link=$(eval "find . -mindepth 1 -maxdepth 1 $ignore_patterns -printf '%P\n'" | \
-                sed 's:/*$::')
+files_to_link=$(cat files-to-link.txt)
 
 # Check for conflicts
 for file in $files_to_link; do
@@ -64,8 +45,10 @@ for file in $files_to_link; do
     # Check if the target exists and is not a symlink to handle conflicts
     if [ -e "$target" ] && [ ! -L "$target" ]; then
         handle_conflict "$target"
+    elif [ -L "$target" ]; then
+        echo "Already linked: $target"
+    else
+        ln -s "$PWD/$file" "$target"
+        echo "Linked: $target"
     fi
 done
-
-# Use stow to create all symlinks
-stow -v .

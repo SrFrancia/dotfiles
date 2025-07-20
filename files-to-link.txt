@@ -1,0 +1,4 @@
+.bashrc
+.bash_aliases
+.gitconfig
+.config/nvim
