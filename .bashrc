@@ -96,4 +96,4 @@ if ! shopt -oq posix; then
   fi
 fi
 export PROMPT_DIRTRIM=3
-export XDG_STATE_HOME=$HOME/.config/
+export XDG_STATE_HOME=$HOME/.local/state/
