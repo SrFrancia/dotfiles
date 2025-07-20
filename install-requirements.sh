@@ -20,7 +20,7 @@ function check_preq {
 add-apt-repository ppa:neovim-ppa/unstable
 
 apt update
-apt install git neovim curl npm gcc make clangd python3 python3-venv python-is-python3 pip python3-pynvim lua5.4 luarocks ripgrep fd-find stow -y
+apt install git neovim curl npm gcc make clangd python3 python3-venv python-is-python3 pip python3-pynvim lua5.4 luarocks ripgrep fd-find -y
 # python3-pip install --user --upgrade pynvim ## replaced with apt install python3-nvim
 ln $(which nvim) "$HOME/.local/bin/vim"
 npm install -g bash-languaje-server
