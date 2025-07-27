@@ -8,7 +8,7 @@ handle_conflict() {
     local target="$1"
     echo "Conflict found: $target already exists"
     while true; do
-        read -pr "What would you like to do? [b]ackup/[r]emove/[s]kip: " choice
+        read -p "What would you like to do? [b]ackup/[r]emove/[s]kip: " choice
         case "$choice" in
             b|B)
                 if [[ ! -d "$HOME/.backup" ]]; then
