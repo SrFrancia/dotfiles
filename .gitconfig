@@ -1,5 +1,7 @@
 [user]
 	name = SrFrancia
 	email = 23404787+SrFrancia@users.noreply.github.com
+[core]
+	editor = nvim
 [init]
 	defaultBranch = main

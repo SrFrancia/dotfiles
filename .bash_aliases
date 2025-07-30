@@ -11,7 +11,13 @@ if [ -x /usr/bin/dircolors ]; then
     alias ncdu='ncdu --color=dark'
 fi
 
+cheat ()
+{
+  curl https://cheat.sh/$1
+}
+
 alias c='clear'
 alias ll='ls -AlhF'
-alias la='ls -ah'
+alias la='ls -alh'
 alias l='ls -CF'
+alias bat='batcat'
