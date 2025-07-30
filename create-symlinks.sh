@@ -4,6 +4,8 @@ set -e
 set -u
 
 # Function to handle conflicts
+# Receives the target file path as an argument
+# returns: 1 if the user chooses to skip, 0 otherwise
 handle_conflict() {
     local target="$1"
     echo "Conflict found: $target already exists"
@@ -17,16 +19,16 @@ handle_conflict() {
                 fi
                 mv "$target" "$HOME/.backup/${target##*/}"
                 echo "Backed up to ~/.backup/${target##*/}"
-                break
+                return 0
                 ;;
             r|R)
                 rm -rf "$target"
                 echo "Removed $target"
-                break
+                return 0
                 ;;
             s|S)
                 echo "Skipping $target"
-                break
+                return 1
                 ;;
             *)
                 echo "Invalid choice"
@@ -45,6 +47,10 @@ for file in $files_to_link; do
     # Check if the target exists and is not a symlink to handle conflicts
     if [ -e "$target" ] && [ ! -L "$target" ]; then
         handle_conflict "$target"
+        if [ $? -eq 0 ]; then
+            ln -s "$PWD/$file" "$target"
+            echo "Linked: $target"
+        fi
     elif [ -L "$target" ]; then
         echo "Already linked: $target"
     else
