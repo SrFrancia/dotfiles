@@ -14,4 +14,10 @@ return { -- You can easily change to a different colorscheme.
 		-- You can configure highlights by doing something like:
 		vim.cmd.hi("Comment gui=none")
 	end,
+	on_highlights = function(highlights, colors)
+		-- Make unused code more readable by using a lighter gray
+		highlights.DiagnosticUnnecessary = { fg = colors.comment }
+		-- Or use any other color from the palette
+		-- highlights.DiagnosticUnnecessary = { fg = colors.dark5 }
+	end,
 }
