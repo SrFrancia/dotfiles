@@ -209,7 +209,6 @@ return { -- LSP Configuration & Plugins
 			"stylua", -- Used to format Lua code
 			"shfmt", -- Used to format shell scripts
 			"lua-language-server", -- LSP for Lua
-			"ruby-lsp", -- LSP for Ruby
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
