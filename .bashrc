@@ -28,7 +28,8 @@ ex ()
   fi
 }
 
-export EDITOR=vim
+export EDITOR=/usr/bin/nvim
+export SUDO_EDITOR=/usr/bin/nvim
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
