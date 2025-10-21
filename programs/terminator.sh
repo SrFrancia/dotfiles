@@ -8,7 +8,9 @@ fi
 installTerminator() {
   apt install terminator
   # Sets the default terminal to termiantor
-  gsettings set org.cinnamon.desktop.default-applications.terminal exec 'terminator'
+  if [ "$XDG_CURRENT_DESKTOP" == "X-Cinnamon" ]; then
+    gsettings set org.cinnamon.desktop.default-applications.terminal exec 'terminator'
+  fi
 }
 
 apt update
