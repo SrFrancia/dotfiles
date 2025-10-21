@@ -126,8 +126,6 @@ fi
 export PROMPT_DIRTRIM=3
 export XDG_STATE_HOME=$HOME/.local/state/
 
-export PATH="$PATH:/opt/piper/piper"
-export PATH="$PATH:/home/javier/.local/bin"
-export PATH="$PATH:/opt/clion-2024.3.4/bin"
+export PATH="$PATH:$HOME/.local/bin"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
