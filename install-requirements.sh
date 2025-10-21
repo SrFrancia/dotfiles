@@ -8,18 +8,12 @@ fi
 set -e
 set -u
 
-function check_preq {
-  (command -v $1 >/dev/null && echo "$1 encontrado.") ||
-    (echo "$1 no encontrado, instala antes de seguir." && exit 1)
-}
-
-# check_preq
-
 # Add Neovim unstable ppa
+echo "Neovim unstable PPA va a ser añadido, dale a ENTER cuando se pida"
 add-apt-repository ppa:neovim-ppa/unstable
 
 apt update
-apt install git neovim curl gcc make clangd python3 python3-venv python-is-python3 pip python3-pynvim lua5.4 luarocks ripgrep fd-find -y
+apt install git neovim curl gcc make lua5.4 ripgrep fd-find bat -y
 
 # Install JetBrainsMono Nerd Font
 if [[ ! -e /usr/local/share/fonts/JetBrainsMonoNerdFont-Regular.ttf ]]; then
