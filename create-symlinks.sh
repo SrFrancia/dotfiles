@@ -10,7 +10,7 @@ handle_conflict() {
     local target="$1"
     echo "Conflict found: $target already exists"
     while true; do
-        read -p "What would you like to do? [b]ackup/[r]emove/[s]kip: " choice
+        read -rp "What would you like to do? [b]ackup/[r]emove/[s]kip: " choice
         case "$choice" in
             b|B)
                 if [[ ! -d "$HOME/.backup" ]]; then
@@ -19,16 +19,16 @@ handle_conflict() {
                 fi
                 mv "$target" "$HOME/.backup/${target##*/}"
                 echo "Backed up to ~/.backup/${target##*/}"
-                return 0
+                break
                 ;;
             r|R)
                 rm -rf "$target"
                 echo "Removed $target"
-                return 0
+                break
                 ;;
             s|S)
                 echo "Skipping $target"
-                return 1
+                break
                 ;;
             *)
                 echo "Invalid choice"
@@ -47,7 +47,7 @@ for file in $files_to_link; do
     # Check if the target exists and is not a symlink to handle conflicts
     if [ -e "$target" ] && [ ! -L "$target" ]; then
         handle_conflict "$target"
-        if [ $? -eq 0 ]; then
+        if [ ! -e "$target" ]; then
             ln -s "$PWD/$file" "$target"
             echo "Linked: $target"
         fi
