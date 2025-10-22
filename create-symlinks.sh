@@ -8,30 +8,30 @@ set -u
 # returns: 1 if the user chooses to skip, 0 otherwise
 handle_conflict() {
     local target="$1"
-    echo "Conflict found: $target already exists"
+    echo "Conflicto encontrado: $target ya existe"
     while true; do
-        read -rp "What would you like to do? [b]ackup/[r]emove/[s]kip: " choice
+        read -rp "¿Qué quieres hacer con él? [b]ackup/[r]emove/[s]kip: " choice
         case "$choice" in
             b|B)
                 if [[ ! -d "$HOME/.backup" ]]; then
-                    echo "Creating ~/.backup..."
+                    echo "Creado ~/.backup..."
                     mkdir -p "$HOME/.backup"
                 fi
                 mv "$target" "$HOME/.backup/${target##*/}"
-                echo "Backed up to ~/.backup/${target##*/}"
+                echo "Creada copia en ~/.backup/${target##*/}"
                 break
                 ;;
             r|R)
                 rm -rf "$target"
-                echo "Removed $target"
+                echo "Borrado $target"
                 break
                 ;;
             s|S)
-                echo "Skipping $target"
+                echo "Saltando $target"
                 break
                 ;;
             *)
-                echo "Invalid choice"
+                echo "Opción inválida"
                 ;;
         esac
     done
@@ -49,12 +49,12 @@ for file in $files_to_link; do
         handle_conflict "$target"
         if [ ! -e "$target" ]; then
             ln -s "$PWD/$file" "$target"
-            echo "Linked: $target"
+            echo "Creado link para: $target"
         fi
     elif [ -L "$target" ]; then
-        echo "Already linked: $target"
+        echo "El link ya estaba creado: $target"
     else
         ln -s "$PWD/$file" "$target"
-        echo "Linked: $target"
+        echo "Creado link para: $target"
     fi
 done
