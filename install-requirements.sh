@@ -13,7 +13,7 @@ echo "Neovim unstable PPA va a ser añadido, dale a ENTER cuando se pida"
 add-apt-repository ppa:neovim-ppa/unstable
 
 apt update
-apt install git neovim curl gcc make lua5.4 ripgrep fd-find bat -y
+apt install git neovim curl gcc make shellcheck lua5.4 ripgrep fd-find bat -y
 
 # Install JetBrainsMono Nerd Font
 if [[ ! -e /usr/local/share/fonts/JetBrainsMonoNerdFont-Regular.ttf ]]; then
