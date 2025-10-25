@@ -25,6 +25,9 @@ return { -- Autoformat
 		-- end,
 		formatters_by_ft = {
 			lua = { "stylua" },
+			sql = { "pg_format" },
+			c = { "clang-format" },
+			cpp = { "clang-format" },
 			-- Conform can also run multiple formatters sequentially
 			-- python = { "isort", "black" },
 			--
@@ -39,8 +42,22 @@ return { -- Autoformat
 					"--indent-width",
 					vim.opt.tabstop:get(), -- Use default indentation
 					"--indent-type",
-					(vim.opt.expandtab:get() and "Spaces" or "Tabs"), -- Force spaces instead of tabs
+					(vim.opt.expandtab:get() and "Spaces" or "Tabs"),
 				},
+			},
+			pg_format = {
+				command = "pg_format",
+				prepend_args = {
+					"--spaces",
+					vim.opt.tabstop:get(), -- Use default indentation
+					(not vim.opt.expandtab:get() and "--tabs")
+				}
+			},
+			clang_format = {
+				command = "clang-format",
+				prepend_args = {
+					"--style=Google",
+				}
 			},
 		},
 	},
