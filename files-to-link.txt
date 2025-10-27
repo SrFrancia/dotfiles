@@ -2,3 +2,4 @@
 .bash_aliases
 .gitconfig
 .config/nvim
+.config/tmux
