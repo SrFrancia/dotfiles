@@ -34,7 +34,8 @@ case "$version" in
     echo "Opcion no reconocida, saliendo"
     exit 1
     ;;
-fi
+esac
+
 # Comprobamos si existe el alias vim=nvim en .bash_aliases
 # o .bashrc en su defecto, y si no está lo añadimos
 if [[ 
