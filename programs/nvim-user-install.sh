@@ -2,19 +2,52 @@
 if [[ ! -d "$HOME"/.local/bin/ ]]; then
   mkdir -p "$HOME"/.local/bin/
 fi
-wget https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-x86_64.appimage -O "$HOME"/.local/bin/nvim
-chmod +x "$HOME"/.local/bin/nvim
 
+local kernel = $(uname -s)
+local arch = $(uname -i)
+if [[ "$arch" -ne "x86_64" || "$kernel" -ne "Linux" ]]; then
+  echo "Arquitectura o Kernel no soportados"
+  exit 1
+fi
+
+read -rp "[1] v0.11.4\n[2] v0.10.4\n[3] v0.9.5\nIndique la versión por su índice: " version
+case "$version" in
+  1)
+    wget https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-x86_64.appimage -O "$HOME"/.local/bin/nvim
+    chmod +x "$HOME"/.local/bin/nvim
+    break
+    ;;
+  2)
+    wget https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.appimage -O "$HOME"/.local/bin/nvim
+    chmod +x "$HOME"/.local/bin/nvim
+    break
+    ;;
+
+  3)
+    wget https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage -O "$HOME"/.local/bin/nvim
+    chmod +x "$HOME"/.local/bin/nvim
+    break
+    ;;
+  *)
+    echo "Opcion no reconocida, saliendo"
+    exit 1
+    ;;
+fi
 # Comprobamos si existe el alias vim=nvim en .bash_aliases
 # o .bashrc en su defecto, y si no está lo añadimos
 if [[ 
-  -e "$HOME"/.bash_aliases &&
-  $(grep -c "alias vim='nvim'" "$HOME"/.bash_aliases) -eq 0 ]] \
-  ; then
+    -e "$HOME"/.bash_aliases &&
+    $(grep -c "alias vim='nvim'" "$HOME"/.bash_aliases) -eq 0
+  ]]; then
   echo "alias vim='nvim'" >>"$HOME"/.bash_aliases
 elif [[ 
-  -e "$HOME"/.bashrc &&
-  $(grep -c "alias vim='nvim'" "$HOME"/.bashrc) -eq 0 ]] \
-  ; then
+    -e "$HOME"/.bashrc &&
+    $(grep -c "alias vim='nvim'" "$HOME"/.bashrc) -eq 0
+  ]]; then
   echo "alias vim='nvim'" >>"$HOME"/.bashrc
+fi
+
+# Comprobamos que $HOME/.local/bin esté en $PATH
+if [[ $(echo "$PATH" | grep -c "$HOME/.local/bin") -eq 0 ]]; then
+  export PATH="$PATH:$HOME/.local/bin"
 fi
