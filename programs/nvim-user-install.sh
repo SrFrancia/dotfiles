@@ -3,14 +3,14 @@ if [[ ! -d "$HOME"/.local/bin/ ]]; then
   mkdir -p "$HOME"/.local/bin/
 fi
 
-local kernel = $(uname -s)
-local arch = $(uname -i)
+kernel = $(uname -s)
+arch = $(uname -i)
 if [[ "$arch" -ne "x86_64" || "$kernel" -ne "Linux" ]]; then
   echo "Arquitectura o Kernel no soportados"
   exit 1
 fi
-
-read -rp "[1] v0.11.4\n[2] v0.10.4\n[3] v0.9.5\nIndique la versión por su índice: " version
+echo "[1] v0.11.4\n[2] v0.10.4\n[3] v0.9.5\n"
+read -rp "Indique la versión por su índice: " version
 case "$version" in
   1)
     wget https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-x86_64.appimage -O "$HOME"/.local/bin/nvim
