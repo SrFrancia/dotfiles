@@ -3,13 +3,15 @@ if [[ ! -d "$HOME"/.local/bin/ ]]; then
   mkdir -p "$HOME"/.local/bin/
 fi
 
-kernel = $(uname -s)
-arch = $(uname -i)
+kernel=$(uname -s)
+arch=$(uname -i)
 if [[ "$arch" -ne "x86_64" || "$kernel" -ne "Linux" ]]; then
   echo "Arquitectura o Kernel no soportados"
   exit 1
 fi
-echo "[1] v0.11.4\n[2] v0.10.4\n[3] v0.9.5\n"
+echo "[1] v0.11.4"
+echo "[2] v0.10.4"
+echo "[3] v0.9.5"
 read -rp "Indique la versión por su índice: " version
 case "$version" in
   1)
