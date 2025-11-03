@@ -53,4 +53,5 @@ fi
 # Comprobamos que $HOME/.local/bin esté en $PATH
 if [[ $(echo "$PATH" | grep -c "$HOME/.local/bin") -eq 0 ]]; then
   export PATH="$PATH:$HOME/.local/bin"
+  echo "export PATH=\"$PATH:$HOME/.local/bin\"" >> "$HOME/.bashrc"
 fi
