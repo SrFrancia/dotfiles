@@ -192,7 +192,6 @@ return { -- LSP Configuration & Plugins
 					debounce_text_changes = 150,
 				},
 			},
-			postgrestools = {},
 		}
 
 		-- Ensure the servers and tools above are installed
@@ -211,6 +210,7 @@ return { -- LSP Configuration & Plugins
 			"shfmt", -- Used to format shell scripts
 			"lua-language-server", -- LSP for Lua
 			"pgformatter",
+			"postgres-language-server",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
