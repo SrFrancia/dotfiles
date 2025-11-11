@@ -211,6 +211,7 @@ return { -- LSP Configuration & Plugins
 			"lua-language-server", -- LSP for Lua
 			"pgformatter",
 			"postgres-language-server",
+      "clang-format",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -222,7 +223,13 @@ return { -- LSP Configuration & Plugins
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for tsserver)
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
+          if server_name == 'clangd' then
+            require("clangd_extensions").setup({
+              server = server
+            })
+          else
+            require("lspconfig")[server_name].setup(server)
+          end
 				end,
 			},
 		})
