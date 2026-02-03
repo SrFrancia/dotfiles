@@ -28,6 +28,7 @@ return { -- Autoformat
 			sql = { "pg_format" },
 			c = { "clang-format" },
 			cpp = { "clang-format" },
+      sh = { "shfmt" }
 			-- Conform can also run multiple formatters sequentially
 			-- python = { "isort", "black" },
 			--
@@ -59,6 +60,7 @@ return { -- Autoformat
 					"--style=Google",
 				}
 			},
+      shfmt = {},
 		},
 	},
 }
