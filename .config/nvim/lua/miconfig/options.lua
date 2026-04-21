@@ -83,8 +83,8 @@ vim.opt.scrolloff = 10
 local prefix = os.getenv("XDG_STATE_HOME")
 -- Fallback to default if XDG_STATE_HOME is not set
 if not prefix then
-	prefix = os.getenv("HOME") .. "/.local/state"
+	prefix = os.getenv("HOME") .. "/.local/state/"
 end
-vim.opt.undodir = { prefix .. "/nvim/.undo//" }
-vim.opt.backupdir = { prefix .. "/nvim/.backup//" }
-vim.opt.directory = { prefix .. "/nvim/.swp//" }
+vim.opt.undodir = { prefix .. "nvim/.undo/" }
+vim.opt.backupdir = { prefix .. "nvim/.backup/" }
+vim.opt.directory = { prefix .. "nvim/.swp/" }
